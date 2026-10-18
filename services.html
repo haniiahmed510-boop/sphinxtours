@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Экскурсии по Египту — Сфинкс Тур</title>
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&family=Cinzel:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+    --gold: #d4a24e;
+    --sea-deep: #023e8a;
+    --sea: #0077b6;
+    --sea-light: #00b4d8;
+    --sea-pale: #90e0ef;
+    --dark: #03045e;
+    --foam: #caf0f8;
+    --wa: #25D366;
+    --tg: #0088cc;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+html { scroll-behavior: smooth; }
+body {
+    background: linear-gradient(180deg, var(--dark) 0%, var(--sea-deep) 50%, #012a4a 100%);
+    color: white; line-height: 1.6; overflow-x: hidden; min-height: 100vh;
+}
+
+/* ПУЗЫРИ */
+.bubbles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+.bubble {
+    position: absolute; bottom: -100px; border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(202, 240, 248, 0.6), rgba(0, 180, 216, 0.1));
+    border: 1px solid rgba(202, 240, 248, 0.4); box-shadow: inset -5px -5px 15px rgba(255,255,255,0.3), 0 0 15px rgba(0, 180, 216, 0.3);
+    animation: rise linear infinite;
+}
+.bubble:nth-child(1) { left: 10%; width: 20px; height: 20px; animation-duration: 12s; animation-delay: 0s; }
+.bubble:nth-child(2) { left: 25%; width: 35px; height: 35px; animation-duration: 15s; animation-delay: 2s; }
+.bubble:nth-child(3) { left: 45%; width: 15px; height: 15px; animation-duration: 10s; animation-delay: 4s; }
+.bubble:nth-child(4) { left: 65%; width: 40px; height: 40px; animation-duration: 18s; animation-delay: 1s; }
+.bubble:nth-child(5) { left: 80%; width: 25px; height: 25px; animation-duration: 14s; animation-delay: 3s; }
+.bubble:nth-child(6) { left: 92%; width: 18px; height: 18px; animation-duration: 11s; animation-delay: 5s; }
+@keyframes rise {
+    0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+    10% { opacity: 0.7; }
+    50% { transform: translateY(-50vh) translateX(30px) scale(1.1); }
+    90% { opacity: 0.4; }
+    100% { transform: translateY(-110vh) translateX(-30px) scale(0.8); opacity: 0; }
+}
+
+/* Navbar */
+nav {
+    position: fixed; top: 0; left: 0; width: 100%; padding: 1rem 5%;
+    display: flex; justify-content: space-between; align-items: center;
+    z-index: 1000; background: rgba(2, 62, 138, 0.85); backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(144, 224, 239, 0.3);
+}
+.logo {
+    font-family: 'Cinzel', serif; font-size: 1.4rem; font-weight: 900;
+    color: var(--sea-pale); letter-spacing: 2px; display: flex; align-items: center; gap: 10px;
+    text-shadow: 0 0 20px rgba(0, 180, 216, 0.6);
+}
+.logo img { height: 45px; width: auto; border-radius: 5px; }
+.nav-links { display: flex; gap: 1.2rem; align-items: center; }
+.nav-links a { text-decoration: none; color: var(--foam); font-weight: 600; font-size: 0.95rem; transition: color 0.3s; }
+.nav-links a:hover, .nav-links a.active { color: var(--sea-pale); }
+.nav-contacts { display: flex; gap: 0.8rem; }
+.nav-contacts a {
+    width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; color: white; text-decoration: none; transition: transform 0.3s;
+}
+.nav-contacts a.wa { background: var(--wa); }
+.nav-contacts a.tg { background: var(--tg); }
+.nav-contacts a:hover { transform: scale(1.15); }
+
+.page-hero {
+    min-height: 55vh; position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; padding: 140px 5% 100px;
+    background: linear-gradient(180deg, rgba(2, 62, 138, 0.7) 0%, rgba(0, 119, 182, 0.4) 60%, rgba(1, 42, 74, 0.95) 100%),
+                url('images/баннер.png') center/cover no-repeat;
+    background-color: var(--sea-deep); overflow: hidden;
+}
+.page-hero-content { position: relative; z-index: 2; max-width: 900px; }
+.page-hero .subtitle {
+    font-family: 'Cinzel', serif; color: var(--sea-pale);
+    font-size: 0.9rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 1rem;
+}
+.page-hero h1 {
+    font-family: 'Cinzel', serif; font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 900; color: #fff; margin-bottom: 1rem; text-shadow: 0 4px 20px rgba(0,0,0,0.6); letter-spacing: 2px;
+}
+.page-hero p { color: rgba(202, 240, 248, 0.9); font-size: 1.1rem; max-width: 600px; margin: 0 auto; text-shadow: 0 2px 10px rgba(0,0,0,0.6); }
+
+.waves { position: absolute; bottom: 0; left: 0; width: 100%; height: 80px; overflow: hidden; line-height: 0; pointer-events: none; }
+.waves svg { display: block; width: 100%; height: 100%; }
+
+section { padding: 5rem 5%; position: relative; }
+.section-title { text-align: center; margin-bottom: 3rem; }
+.section-title .subtitle { font-family: 'Cinzel', serif; color: var(--sea-pale); font-size: 0.85rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 0.8rem; }
+.section-title h2 { font-family: 'Cinzel', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; color: #fff; margin-bottom: 1rem; }
+.section-title p { color: rgba(202, 240, 248, 0.8); font-size: 1rem; }
+
+.city-block { margin-bottom: 5rem; }
+
+.city-header {
+    display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+    max-width: 1200px; margin: 0 auto 3rem; padding: 4rem 2rem;
+    border-radius: 24px; border: 1px solid rgba(144, 224, 239, 0.4);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+    background-size: cover; background-position: center;
+    position: relative; overflow: hidden;
+}
+.city-header::before { 
+    content: ''; position: absolute; inset: 0; 
+    background: linear-gradient(180deg, rgba(2, 62, 138, 0.6) 0%, rgba(1, 42, 74, 0.85) 100%); 
+    z-index: 1; 
+}
+.city-header-text {
+    position: relative; z-index: 2;
+}
+.city-header h2 {
+    font-family: 'Cinzel', serif; font-size: clamp(2.5rem, 6vw, 4.5rem);
+    color: #fff; font-weight: 900; letter-spacing: 4px; margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.9);
+}
+.city-header p {
+    color: var(--sea-pale); font-size: 1.1rem; font-weight: 600; letter-spacing: 2px;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.9);
+}
+
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; perspective: 1500px; }
+
+.card {
+    background: linear-gradient(180deg, rgba(0, 119, 182, 0.15), rgba(2, 62, 138, 0.1));
+    border: 1px solid rgba(144, 224, 239, 0.3); border-radius: 22px; overflow: hidden;
+    transition: all 0.5s; display: flex; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+.card:hover { transform: translateY(-12px) rotateX(4deg) rotateY(-4deg); border-color: var(--sea-pale); box-shadow: 0 40px 80px rgba(0, 180, 216, 0.4); }
+
+.card-img { height: 210px; background-size: cover; background-position: center; position: relative; background-color: #012a4a; }
+
+.card-img-split { display: flex; height: 210px; position: relative; overflow: hidden; }
+.card-img-split > div { width: 50%; height: 100%; background-size: cover; background-position: center; transition: all 0.5s; }
+
+.card-badge {
+    position: absolute; top: 15px; left: 15px;
+    background: linear-gradient(135deg, var(--gold), #b8894a);
+    color: #0d0a05; padding: 6px 16px; border-radius: 20px;
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; z-index: 2;
+}
+.card-body { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; }
+.card-body h3 { font-family: 'Cinzel', serif; font-size: 1.15rem; color: #fff; margin-bottom: 0.6rem; }
+.card-body p { color: rgba(202, 240, 248, 0.75); font-size: 0.9rem; margin-bottom: 1rem; flex-grow: 1; line-height: 1.5; }
+.card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(144, 224, 239, 0.2); padding-top: 1rem; margin-top: auto; }
+.price { font-family: 'Cinzel', serif; font-size: 1.3rem; font-weight: 900; color: var(--gold); }
+.price span { font-size: 0.75rem; color: rgba(202, 240, 248, 0.6); font-weight: 400; font-family: 'Montserrat', sans-serif; }
+.btn-book {
+    background: linear-gradient(135deg, var(--sea-light), var(--sea)); color: white; border: none;
+    padding: 10px 20px; border-radius: 30px; font-weight: 700; font-size: 0.85rem; cursor: pointer;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: all 0.3s;
+    box-shadow: 0 6px 20px rgba(0, 180, 216, 0.4);
+}
+.btn-book:hover { transform: scale(1.05); box-shadow: 0 12px 30px rgba(0, 180, 216, 0.6); }
+
+.contacts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 900px; margin: 0 auto; }
+.contact-card {
+    background: linear-gradient(135deg, rgba(0, 119, 182, 0.15), rgba(144, 224, 239, 0.05));
+    border: 1px solid rgba(144, 224, 239, 0.25); border-radius: 20px; padding: 2.5rem 2rem;
+    text-align: center; text-decoration: none; color: white; transition: all 0.4s;
+}
+.contact-card:hover { transform: translateY(-10px); border-color: var(--sea-pale); }
+.contact-icon { width: 70px; height: 70px; margin: 0 auto 1.2rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white; }
+.contact-card.wa .contact-icon { background: var(--wa); }
+.contact-card.tg .contact-icon { background: var(--tg); }
+.contact-card h3 { font-family: 'Cinzel', serif; color: var(--sea-pale); margin-bottom: 0.5rem; }
+.contact-card p { color: rgba(255,255,255,0.8); font-size: 1.05rem; }
+
+.floating-contacts { position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 12px; z-index: 999; }
+.floating-contacts a {
+    width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem; color: white; text-decoration: none; box-shadow: 0 10px 30px rgba(0,0,0,0.4); transition: transform 0.3s;
+}
+.floating-contacts a.wa { background: var(--wa); }
+.floating-contacts a.tg { background: var(--tg); }
+.floating-contacts a:hover { transform: scale(1.15) rotate(5deg); }
+
+footer { background: rgba(3, 4, 94, 0.85); border-top: 1px solid rgba(144, 224, 239, 0.2); padding: 3rem 5%; text-align: center; color: rgba(202, 240, 248, 0.5); }
+footer .logo { justify-content: center; margin-bottom: 1rem; }
+footer a { color: inherit; text-decoration: none; transition: color 0.3s; }
+footer a:hover { color: var(--sea-pale); }
+
+/* КУКИ СНИЗУ */
+.cookie-banner {
+    position: fixed; bottom: 0; left: 0; width: 100%; 
+    background: rgba(2, 62, 138, 0.95); backdrop-filter: blur(15px);
+    border-top: 2px solid var(--sea-light); padding: 1.5rem 5%;
+    display: flex; justify-content: space-between; align-items: center; gap: 1.5rem;
+    z-index: 10000; flex-wrap: wrap; box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
+    transform: translateY(100%); transition: transform 0.4s ease-in-out;
+}
+.cookie-banner.show { transform: translateY(0); }
+.cookie-text { color: rgba(202, 240, 248, 0.9); font-size: 0.95rem; display: flex; align-items: center; gap: 15px; flex: 1; min-width: 280px; }
+.cookie-text i { color: var(--sea-pale); font-size: 2rem; }
+.cookie-buttons { display: flex; gap: 1rem; }
+.cookie-btn { padding: 12px 25px; border-radius: 30px; font-size: 0.9rem; font-weight: 700; cursor: pointer; border: none; transition: all 0.3s; }
+.cookie-accept { background: linear-gradient(135deg, var(--sea-light), var(--sea)); color: white; box-shadow: 0 5px 15px rgba(0, 180, 216, 0.4); }
+.cookie-accept:hover { transform: scale(1.05); }
+.cookie-decline { background: transparent; color: var(--sea-pale); border: 1px solid var(--sea-pale); }
+.cookie-decline:hover { background: rgba(144, 224, 239, 0.1); }
+
+.reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s; }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 768px) {
+    .nav-links { display: none; }
+    .city-header { padding: 3rem 1rem; }
+    .cookie-banner { flex-direction: column; text-align: center; }
+    .cookie-text { flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="bubbles">
+    <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+    <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+</div>
+
+<nav>
+    <div class="logo">
+        <img src="images/logo.jpeg" alt="Сфинкс Тур">
+        СФИНКС ТУР
+    </div>
+    <div class="nav-links">
+        <a href="index.html">Главная</a>
+        <a href="services.html" class="active">Экскурсии по Египту</a>
+        <a href="tours.html">Подбор туров</a>
+        <a href="hot-tours.html">Горящие туры</a>
+        <a href="tips.html">Советы</a>
+    </div>
+    <div class="nav-contacts">
+        <a href="https://wa.me/79953166056" target="_blank" class="wa"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://t.me/+79953166056" target="_blank" class="tg"><i class="fab fa-telegram"></i></a>
+    </div>
+</nav>
+
+<header class="page-hero">
+    <div class="page-hero-content">
+        <div class="subtitle">Сфинкс Тур</div>
+        <h1>Экскурсии по Египту</h1>
+        <p>Морские прогулки, сафари и экскурсии — по каждому городу Египта</p>
+    </div>
+    <div class="waves">
+        <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+            <path fill="rgba(0, 180, 216, 0.4)" d="M0,50 C240,100 480,0 720,50 C960,100 1200,0 1440,50 L1440,100 L0,100 Z"></path>
+            <path fill="rgba(0, 119, 182, 0.5)" d="M0,60 C240,110 480,10 720,60 C960,110 1200,10 1440,60 L1440,100 L0,100 Z"></path>
+            <path fill="rgba(1, 42, 74, 0.9)" d="M0,70 C240,120 480,20 720,70 C960,120 1200,20 1440,70 L1440,100 L0,100 Z"></path>
+        </svg>
+    </div>
+</header>
+
+<!-- ХУРГАДА -->
+<section class="city-block">
+    <div class="city-header reveal" style="background-image: url('images/hurgada.jpg');">
+        <div class="city-header-text">
+            <h2>Хургада</h2>
+            <p>Морские прогулки, острова и пустынные сафари</p>
+        </div>
+    </div>
+    <div class="grid">
+        <div class="card reveal">
+            <div class="card-img" style="background-image: url('images/orange.jpg');"><span class="card-badge">ХИТ</span></div>
+            <div class="card-body"><h3>Остров Orange Bay</h3><p>Райский остров с белоснежным песком. Снорклинг в двух местах, водные развлечения, обед на яхте и напитки.</p>
+                <div class="card-footer"><div class="price">$30 <span>/ чел</span></div><a href="https://wa.me/79953166056?text=Хочу%20забронировать%20Orange%20Island" target="_blank" class="btn-book"><i class="fab fa-whatsapp"></i> Бронь</a></div>
+            </div>
+        </div>
+        <div class="card reveal">
+            <div class="card-img" style="background-image: url('images/hola.jpg');"></div>
+            <div class="card-body"><h3>Остров Hola Hola</h3><p>Уютный остров для отдыха и снорклинга. Кристально чистая вода, коралловые рифы, обед и напитки включены.</p>
+                <div class="card-footer"><div class="price">$30 <span>/ чел</span></div><a href="https://wa.me/79953166056?text=Хочу%20забронировать%20Hola%20Hola" target="_blank" class="btn-book"><i class="fab fa-whatsapp"></i> Бронь</a></div>
+            </div>
+        </div>
+        <div class="card reveal">
+            <div class="card-img" style="background-image: url('images/dolphin.jpg');"><span class="card-badge">ТОП</span></div>
+            <div class="card-body"><h3>Dolphin House</h3><p>Прогулка на яхте к дельфинам. Купание с дельфинами, снорклинг на рифах, обед и напитки.</p>
+                <div class="card-footer"><div class="price">$25 <span>/ чел</span></div><a href="https://wa.me/79953166056?text=Хочу%20забронировать%20Dolphin%20House" target="_blank" class="btn-book"><i class="fab fa-whatsapp"></i> Бронь</a></div>
+            </div>
+        </div>
+        <div class="card reveal">
+            <div class="card-img" style="background-image: url('images/seascope.jpg');"></div>
+            <div class="card-body"><h3>Батискаф Sea Scope</h3><p>Подводная лодка с панорамными окнами. Погружение на 5 метров, наблюдение за рифами и рыбками, остановка для снорклинга.</p>
+                <div class="card-footer"><div class="price">$20 <span>/ чел</span></div><a href="https://wa.me/79953166056?text=Хочу%20забронировать%20Seascope" target="_blank" class="btn-book"><i class="fab fa-whatsapp"></i> Бронь</a></div>
+            </div>
+        </div>
+        <div class="card reveal">
+            <div class="card-img" style="background-image: url('images/super-safari.jpg');"><span class="card-badge">ХИТ</span></div>
+            <div class="card-body"><h3>Super Safari</h3><p>Поездка на джипе в деревню бедуинов. Катание на верблюдах, чай, квадроциклы (30 мин), багги (15 мин), барбекю и шоу.</p>
+                <div class="card-footer"><div class="price">$30 <span>/ чел</span></div><a href="https://wa.me/79953166056?text=Хочу%20забронировать%20Super%20Safari" target="_blank" class="btn-book"><i class="fab fa-whatsapp"></i> Бронь</a></div>
+            </div>
+        </div>
+        <div class="card reveal">
+            <div class="card-img" style="background-image: url('images/moto-safari.jpg');"></div>
+            <div class="card-body"><h3>Moto Safari</h3><p>3 часа на квадроциклах. Поездка к бедуинской деревне (25 км), чай с бедуинами, катание на верблюдах.</p>
+                <div class="card-footer"><div class="price">$25 <span>/ чел</span></div><a href="https://wa.me/79953166056?text=Хочу%20забронировать%20Moto%20Safari" target="_blank" class="btn-book"><i class="fab fa-whatsapp"></i> Бронь</a></div>
+            </div>
+        </div>
+        <div class="card reveal">
+            <div class="card-img" style="background-image: url('images/family-safari.jpg');"></div>
+            <div class="card-body"><h3>Family Safari</h3><p>Дневное сафари для всей семьи. Квадроциклы (30 мин), багги (15 мин), барбекю-обед, танцы и огненное шоу.</p>
+                <div class="card-footer"><div class="price">$22 <span>/ чел</span></div><a href="https://wa.me/79953166056?text=Хочу%20забронировать%20Family%20Safari" target="_blank" class="btn-book"><i class="fab fa-whatsapp"></i> Бронь</a></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- КАИР -->
+<section class="city-block">
+    <div class="city-header reveal" style="background-image: url('images/cairo1.jpg');">
+        <div class="city-header-text">
+            <h2>Каир</h2>
+            <p>Пирамиды, музеи и история древней цивилизации</p>
+        </div>
+    </div>
+    <div class="grid">
+        <div class="card reveal">
+            <div class="card-img-split">
+                <div style="background-image: url('images/cairo-pyramids.jpg');"></div>
+                <div style="background-image: url('images/cairo-museum.jpg');"></div>
+                <span class="card-badge">ТОП</span>
+            </div>
+            <div class="card-body">
+                <h3>Программа Каир №1</h3>
+                <p>Большой Египетский музей (GEM), Пирамиды и Сфинкс, прогулка по магазинам, обед. Включён русскоговорящий гид.</p>
+                <div class="card-footer">
+                    <div class="price">$90 <span>/ чел</span></div>
+                    <a href="https://wa.me/79953166056?text=Хочу%20забронировать%20Программу%20Каир%20№1" target="_blank" class="btn-book"><i class="fab fa-whatsapp"></i> Бронь</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card reveal">
+            <div class="card-img-split">
+                <div style="background-image: url('images/cairo-pyramids.jpg');"></div>
+                <div style="background-image: url('images/cairo-old.jpg');"></div>
+            </div>
+            <div class="card-body">
+                <h3>Программа Каир №2</h3>
+                <p>Пирамиды и Сфинкс, Старый Каир (коптский квартал), базар Хан-эль-Халили, обед. Включён русскоговорящий гид.</p>
+                <div class="card-footer">
+                    <div class="price">$60 <span>/ чел</span></div>
+                    <a href="https://wa.me/79953166056?text=Хочу%20забронировать%20Программу%20Каир%20№2" target="_blank" class="btn-book"><i class="fab fa-whatsapp"></i> Бронь</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ЛУКСОР -->
+<section class="city-block">
+    <div class="city-header reveal" style="background-image: url('images/louxor1.jpg');">
+        <div class="city-header-text">
+            <h2>Луксор</h2>
+            <p>Храмы, Долина Царей и полёт на воздушном шаре</p>
+        </div>
+    </div>
+    <div class="grid">
+        <div class="card reveal">
+            <div class="card-img-split">
+                <div style="background-image: url('images/luxor-valley.jpg');"></div>
+                <div style="background-image: url('images/luxor-karnak.jpg');"></div>
+                <span class="card-badge">ХИТ</span>
+            </div>
+            <div class="card-body">
+                <h3>Программа Луксор</h3>
+                <p>Долина Царей, Карнакский храм, храм Хатшепсут, Колоссы Мемнона, папирусная фабрика, обед. Включён русскоговорящий гид.</p>
+                <div class="card-footer">
+                    <div class="price">$70 <span>/ чел</span></div>
+                    <a href="https://wa.me/79953166056?text=Хочу%20забронировать%20Программу%20Луксор" target="_blank" class="btn-book"><i class="fab fa-whatsapp"></i> Бронь</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ТРАНСФЕР -->
+<section>
+    <div class="section-title reveal">
+        <div class="subtitle">Дополнительно</div>
+        <h2>Трансфер и транспорт</h2>
+        <p>Встреча в аэропорту и комфортная поездка до отеля</p>
+    </div>
+    <div class="grid">
+        <div class="card reveal">
+            <div class="card-img" style="background-image: url('images/transfer.jpg');"><span class="card-badge">24/7</span></div>
+            <div class="card-body"><h3>Трансфер из аэропорта</h3><p>Индивидуальная встреча с табличкой, комфортабельный автомобиль с кондиционером. Довезём до отеля в любом городе Египта.</p>
+                <div class="card-footer"><div class="price">$25 <span>/ поездка</span></div><a href="https://wa.me/79953166056?text=Хочу%20заказать%20трансфер%20из%20аэропорта" target="_blank" class="btn-book"><i class="fab fa-whatsapp"></i> Заказать</a></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="section-title reveal">
+        <div class="subtitle">Свяжитесь с нами</div>
+        <h2>Готовы к приключению?</h2>
+        <p>Напишите нам в удобный мессенджер — ответим за 5 минут</p>
+    </div>
+    <div class="contacts-grid">
+        <a href="https://wa.me/79953166056" target="_blank" class="contact-card wa reveal">
+            <div class="contact-icon"><i class="fab fa-whatsapp"></i></div><h3>WhatsApp</h3><p>+7 995 316-60-56</p>
+        </a>
+        <a href="https://t.me/+79953166056" target="_blank" class="contact-card tg reveal">
+            <div class="contact-icon"><i class="fab fa-telegram"></i></div><h3>Telegram</h3><p>+7 995 316-60-56</p>
+        </a>
+    </div>
+</section>
+
+<div class="floating-contacts">
+    <a href="https://wa.me/79953166056" target="_blank" class="wa"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://t.me/+79953166056" target="_blank" class="tg"><i class="fab fa-telegram"></i></a>
+</div>
+
+<footer>
+    <div class="logo" style="justify-content: center; margin-bottom: 1rem;">
+        <img src="images/logo.jpeg" alt="Сфинкс Тур" style="height: 50px; border-radius: 5px;">
+        СФИНКС ТУР
+    </div>
+    <p style="color: #caf0f8; margin-bottom: 1rem; font-size: 1rem;">
+        Сайт разработал: <strong style="color: var(--gold);">Ахмед</strong>
+        <br>
+        <span style="font-size: 0.9rem; color: rgba(255,255,255,0.7);">
+            <i class="fas fa-phone-alt"></i> +7 999 920-60-65
+        </span>
+    </p>
+    <p>© 2026 Сфинкс тур. Все права защищены.</p>
+    <p style="margin-top: 0.5rem;">
+        <i class="fab fa-whatsapp" style="color: var(--wa);"></i> 
+        <a href="https://wa.me/79953166056" target="_blank">+7 995 316-60-56</a>
+        &nbsp;|&nbsp;
+        <i class="fab fa-telegram" style="color: var(--tg);"></i> 
+        <a href="https://t.me/+79953166056" target="_blank">+7 995 316-60-56</a>
+    </p>
+</footer>
+
+<!-- КУКИ СНИЗУ -->
+<div class="cookie-banner" id="cookieBanner">
+    <div class="cookie-text">
+        <i class="fas fa-cookie-bite"></i>
+        <span>Мы используем файлы cookie, чтобы сделать ваш опыт на сайте лучше.</span>
+    </div>
+    <div class="cookie-buttons">
+        <button class="cookie-btn cookie-decline" onclick="declineCookies()">Отклонить</button>
+        <button class="cookie-btn cookie-accept" onclick="acceptCookies()">Принять</button>
+    </div>
+</div>
+
+<script>
+    const reveals = document.querySelectorAll('.reveal');
+    function revealOnScroll() {
+        reveals.forEach(el => {
+            const top = el.getBoundingClientRect().top;
+            if (top < window.innerHeight - 100) el.classList.add('active');
+        });
+    }
+    window.addEventListener('scroll', revealOnScroll);
+
+    window.addEventListener('load', function() {
+        document.getElementById('cookieBanner').classList.add('show');
+    });
+
+    function acceptCookies() { document.getElementById('cookieBanner').classList.remove('show'); }
+    function declineCookies() { document.getElementById('cookieBanner').classList.remove('show'); }
+</script>
+</body>
+</html>

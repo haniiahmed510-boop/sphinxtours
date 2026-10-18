@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Горящие туры — Сфинкс Тур</title>
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&family=Cinzel:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+    --gold: #d4a24e;
+    --sea-deep: #023e8a;
+    --sea: #0077b6;
+    --sea-light: #00b4d8;
+    --sea-pale: #90e0ef;
+    --dark: #03045e;
+    --foam: #caf0f8;
+    --wa: #25D366;
+    --tg: #0088cc;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+html { scroll-behavior: smooth; }
+body {
+    background: linear-gradient(180deg, var(--dark) 0%, var(--sea-deep) 50%, #012a4a 100%);
+    color: white; line-height: 1.6; overflow-x: hidden; min-height: 100vh;
+    display: flex; flex-direction: column;
+}
+
+.bubbles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+.bubble {
+    position: absolute; bottom: -100px; border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(202, 240, 248, 0.6), rgba(0, 180, 216, 0.1));
+    border: 1px solid rgba(202, 240, 248, 0.4); box-shadow: inset -5px -5px 15px rgba(255,255,255,0.3), 0 0 15px rgba(0, 180, 216, 0.3);
+    animation: rise linear infinite;
+}
+.bubble:nth-child(1) { left: 10%; width: 20px; height: 20px; animation-duration: 12s; animation-delay: 0s; }
+.bubble:nth-child(2) { left: 25%; width: 35px; height: 35px; animation-duration: 15s; animation-delay: 2s; }
+.bubble:nth-child(3) { left: 45%; width: 15px; height: 15px; animation-duration: 10s; animation-delay: 4s; }
+.bubble:nth-child(4) { left: 65%; width: 40px; height: 40px; animation-duration: 18s; animation-delay: 1s; }
+.bubble:nth-child(5) { left: 80%; width: 25px; height: 25px; animation-duration: 14s; animation-delay: 3s; }
+.bubble:nth-child(6) { left: 92%; width: 18px; height: 18px; animation-duration: 11s; animation-delay: 5s; }
+@keyframes rise {
+    0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+    10% { opacity: 0.7; }
+    50% { transform: translateY(-50vh) translateX(30px) scale(1.1); }
+    90% { opacity: 0.4; }
+    100% { transform: translateY(-110vh) translateX(-30px) scale(0.8); opacity: 0; }
+}
+
+nav {
+    position: fixed; top: 0; left: 0; width: 100%; padding: 1rem 5%;
+    display: flex; justify-content: space-between; align-items: center;
+    z-index: 1000; background: rgba(2, 62, 138, 0.85); backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(144, 224, 239, 0.3);
+}
+.logo {
+    font-family: 'Cinzel', serif; font-size: 1.4rem; font-weight: 900;
+    color: var(--sea-pale); letter-spacing: 2px; display: flex; align-items: center; gap: 10px;
+    text-shadow: 0 0 20px rgba(0, 180, 216, 0.6);
+}
+.logo img { height: 40px; width: auto; border-radius: 5px; }
+.nav-links { display: flex; gap: 1.2rem; align-items: center; }
+.nav-links a { text-decoration: none; color: var(--foam); font-weight: 600; font-size: 0.95rem; transition: color 0.3s; }
+.nav-links a:hover, .nav-links a.active { color: var(--sea-pale); }
+.nav-contacts { display: flex; gap: 0.8rem; align-items: center; }
+.nav-contacts a {
+    width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; color: white; text-decoration: none; transition: transform 0.3s;
+}
+.nav-contacts a.wa { background: var(--wa); }
+.nav-contacts a.tg { background: var(--tg); }
+.nav-contacts a:hover { transform: scale(1.15); }
+
+.empty-page {
+    flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; padding: 140px 5% 100px; position: relative; z-index: 2;
+}
+.empty-page h1 {
+    font-family: 'Cinzel', serif; font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 900; color: #fff; margin-bottom: 1rem; text-shadow: 0 4px 20px rgba(0,0,0,0.6); letter-spacing: 2px;
+}
+.empty-page p {
+    color: rgba(202, 240, 248, 0.9); font-size: 1.2rem; max-width: 600px; margin: 0 auto; text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
+
+.waves { position: absolute; bottom: 0; left: 0; width: 100%; height: 80px; overflow: hidden; line-height: 0; pointer-events: none; z-index: 1; }
+.waves svg { display: block; width: 100%; height: 100%; }
+
+footer { background: rgba(3, 4, 94, 0.85); border-top: 1px solid rgba(144, 224, 239, 0.2); padding: 3rem 5%; text-align: center; color: rgba(202, 240, 248, 0.5); position: relative; z-index: 2; }
+footer .logo { justify-content: center; margin-bottom: 1rem; }
+footer a { color: inherit; text-decoration: none; transition: color 0.3s; }
+footer a:hover { color: var(--sea-pale); }
+
+/* КУКИ СНИЗУ */
+.cookie-banner {
+    position: fixed; bottom: 0; left: 0; width: 100%; 
+    background: rgba(2, 62, 138, 0.95); backdrop-filter: blur(15px);
+    border-top: 2px solid var(--sea-light); padding: 1.5rem 5%;
+    display: flex; justify-content: space-between; align-items: center; gap: 1.5rem;
+    z-index: 10000; flex-wrap: wrap; box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
+    transform: translateY(100%); transition: transform 0.4s ease-in-out;
+}
+.cookie-banner.show { transform: translateY(0); }
+.cookie-text { color: rgba(202, 240, 248, 0.9); font-size: 0.95rem; display: flex; align-items: center; gap: 15px; flex: 1; min-width: 280px; }
+.cookie-text i { color: var(--sea-pale); font-size: 2rem; }
+.cookie-buttons { display: flex; gap: 1rem; }
+.cookie-btn { padding: 12px 25px; border-radius: 30px; font-size: 0.9rem; font-weight: 700; cursor: pointer; border: none; transition: all 0.3s; }
+.cookie-accept { background: linear-gradient(135deg, var(--sea-light), var(--sea)); color: white; box-shadow: 0 5px 15px rgba(0, 180, 216, 0.4); }
+.cookie-accept:hover { transform: scale(1.05); }
+.cookie-decline { background: transparent; color: var(--sea-pale); border: 1px solid var(--sea-pale); }
+.cookie-decline:hover { background: rgba(144, 224, 239, 0.1); }
+
+@media (max-width: 768px) { 
+    .nav-links { display: none; }
+    .cookie-banner { flex-direction: column; text-align: center; }
+    .cookie-text { flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="bubbles">
+    <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+    <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+</div>
+
+<nav>
+    <div class="logo">
+        <img src="images/logo.jpeg" alt="Сфинкс Тур">
+        СФИНКС ТУР
+    </div>
+    <div class="nav-links">
+        <a href="index.html">Главная</a>
+        <a href="services.html">Экскурсии по Египту</a>
+        <a href="tours.html">Подбор туров</a>
+        <a href="hot-tours.html" class="active">Горящие туры</a>
+        <a href="tips.html">Советы</a>
+    </div>
+    <div class="nav-contacts">
+        <a href="https://wa.me/79953166056" target="_blank" class="wa"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://t.me/+79953166056" target="_blank" class="tg"><i class="fab fa-telegram"></i></a>
+    </div>
+</nav>
+
+<main class="empty-page">
+    <h1>Горящие туры</h1>
+    <p>Здесь скоро появятся лучшие предложения по всему миру.</p>
+</main>
+
+<div class="waves">
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+        <path fill="rgba(0, 180, 216, 0.4)" d="M0,50 C240,100 480,0 720,50 C960,100 1200,0 1440,50 L1440,100 L0,100 Z"></path>
+        <path fill="rgba(0, 119, 182, 0.5)" d="M0,60 C240,110 480,10 720,60 C960,110 1200,10 1440,60 L1440,100 L0,100 Z"></path>
+        <path fill="rgba(3, 4, 94, 0.9)" d="M0,70 C240,120 480,20 720,70 C960,120 1200,20 1440,70 L1440,100 L0,100 Z"></path>
+    </svg>
+</div>
+
+<footer>
+    <div class="logo" style="justify-content: center; margin-bottom: 1rem;">
+        <img src="images/logo.jpeg" alt="Сфинкс Тур" style="height: 50px; border-radius: 5px;">
+        СФИНКС ТУР
+    </div>
+    <p style="color: #caf0f8; margin-bottom: 1rem; font-size: 1rem;">
+        Сайт разработал: <strong style="color: var(--gold);">Ахмед</strong>
+        <br>
+        <span style="font-size: 0.9rem; color: rgba(255,255,255,0.7);">
+            <i class="fas fa-phone-alt"></i> +7 999 920-60-65
+        </span>
+    </p>
+    <p>© 2026 Сфинкс тур. Все права защищены.</p>
+    <p style="margin-top: 0.5rem;">
+        <i class="fab fa-whatsapp" style="color: var(--wa);"></i> 
+        <a href="https://wa.me/79953166056" target="_blank">+7 995 316-60-56</a>
+        &nbsp;|&nbsp;
+        <i class="fab fa-telegram" style="color: var(--tg);"></i> 
+        <a href="https://t.me/+79953166056" target="_blank">+7 995 316-60-56</a>
+    </p>
+</footer>
+
+<!-- КУКИ СНИЗУ -->
+<div class="cookie-banner" id="cookieBanner">
+    <div class="cookie-text">
+        <i class="fas fa-cookie-bite"></i>
+        <span>Мы используем файлы cookie, чтобы сделать ваш опыт на сайте лучше.</span>
+    </div>
+    <div class="cookie-buttons">
+        <button class="cookie-btn cookie-decline" onclick="declineCookies()">Отклонить</button>
+        <button class="cookie-btn cookie-accept" onclick="acceptCookies()">Принять</button>
+    </div>
+</div>
+
+<script>
+    window.addEventListener('load', function() {
+        document.getElementById('cookieBanner').classList.add('show');
+    });
+
+    function acceptCookies() { document.getElementById('cookieBanner').classList.remove('show'); }
+    function declineCookies() { document.getElementById('cookieBanner').classList.remove('show'); }
+</script>
+</body>
+</html>

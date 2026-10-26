@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta name="google-site-verification" content="MIldNaZQJ73-IIjzbWjMI-9LE-hSJUoAgk5bEyoexlY" />
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Сфинкс тур — Открой для себя Egypt</title>
@@ -10,61 +9,73 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&family=Cinzel:wght@400;700;900&family=Caveat:wght@700&display=swap" rel="stylesheet">
 <style>
 :root {
-    --gold: #d4a24e;
-    --sea-deep: #023e8a;
-    --sea: #0077b6;
-    --sea-light: #00b4d8;
-    --sea-pale: #90e0ef;
-    --dark: #03045e;
-    --foam: #caf0f8;
+    --gold: #e6b85c;
+    --sea-deep: #011f4b;
+    --sea: #03396c;
+    --sea-light: #005b96;
+    --sea-pale: #b3cde0;
+    --dark: #000814;
+    --foam: #e0fbfc;
     --wa: #25D366;
     --tg: #0088cc;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
 html { scroll-behavior: smooth; }
 body {
-    background: linear-gradient(180deg, var(--dark) 0%, var(--sea-deep) 50%, #012a4a 100%);
+    background: linear-gradient(180deg, var(--dark) 0%, var(--sea-deep) 50%, #011227 100%);
     color: white; line-height: 1.6; overflow-x: hidden; min-height: 100vh;
 }
+
+/* Мобильное меню */
+.burger-menu { display: none; font-size: 1.8rem; color: var(--sea-pale); cursor: pointer; background: none; border: none; z-index: 1001; }
+.mobile-menu-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+    background: rgba(1, 31, 75, 0.98); backdrop-filter: blur(10px);
+    display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 2rem;
+    z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+}
+.mobile-menu-overlay.active { opacity: 1; pointer-events: all; }
+.mobile-menu-overlay a { color: white; text-decoration: none; font-size: 1.5rem; font-weight: 600; font-family: 'Cinzel', serif; }
+.mobile-menu-overlay a:hover { color: var(--gold); }
+.mobile-close { position: absolute; top: 20px; right: 20px; font-size: 2rem; color: var(--sea-pale); cursor: pointer; background: none; border: none; }
 
 /* ПУЗЫРИ */
 .bubbles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
 .bubble {
     position: absolute; bottom: -100px; border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, rgba(202, 240, 248, 0.6), rgba(0, 180, 216, 0.1));
-    border: 1px solid rgba(202, 240, 248, 0.4); box-shadow: inset -5px -5px 15px rgba(255,255,255,0.3), 0 0 15px rgba(0, 180, 216, 0.3);
+    background: radial-gradient(circle at 30% 30%, rgba(179, 205, 224, 0.5), rgba(0, 91, 150, 0.1));
+    border: 1px solid rgba(179, 205, 224, 0.3);
     animation: rise linear infinite;
 }
-.bubble:nth-child(1) { left: 10%; width: 20px; height: 20px; animation-duration: 12s; animation-delay: 0s; }
-.bubble:nth-child(2) { left: 25%; width: 35px; height: 35px; animation-duration: 15s; animation-delay: 2s; }
-.bubble:nth-child(3) { left: 45%; width: 15px; height: 15px; animation-duration: 10s; animation-delay: 4s; }
-.bubble:nth-child(4) { left: 65%; width: 40px; height: 40px; animation-duration: 18s; animation-delay: 1s; }
-.bubble:nth-child(5) { left: 80%; width: 25px; height: 25px; animation-duration: 14s; animation-delay: 3s; }
-.bubble:nth-child(6) { left: 92%; width: 18px; height: 18px; animation-duration: 11s; animation-delay: 5s; }
+.bubble:nth-child(1) { left: 10%; width: 20px; height: 20px; animation-duration: 15s; }
+.bubble:nth-child(2) { left: 30%; width: 35px; height: 35px; animation-duration: 18s; animation-delay: 2s; }
+.bubble:nth-child(3) { left: 50%; width: 15px; height: 15px; animation-duration: 12s; animation-delay: 4s; }
+.bubble:nth-child(4) { left: 70%; width: 40px; height: 40px; animation-duration: 20s; animation-delay: 1s; }
+.bubble:nth-child(5) { left: 85%; width: 25px; height: 25px; animation-duration: 16s; animation-delay: 3s; }
 @keyframes rise {
-    0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
-    10% { opacity: 0.7; }
-    50% { transform: translateY(-50vh) translateX(30px) scale(1.1); }
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    10% { opacity: 0.6; }
     90% { opacity: 0.4; }
-    100% { transform: translateY(-110vh) translateX(-30px) scale(0.8); opacity: 0; }
+    100% { transform: translateY(-110vh) translateX(-30px); opacity: 0; }
 }
 
 /* Navbar */
 nav {
     position: fixed; top: 0; left: 0; width: 100%; padding: 1rem 5%;
     display: flex; justify-content: space-between; align-items: center;
-    z-index: 1000; background: rgba(2, 62, 138, 0.85); backdrop-filter: blur(15px);
-    border-bottom: 1px solid rgba(144, 224, 239, 0.3);
+    z-index: 999; background: rgba(1, 31, 75, 0.85); backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(179, 205, 224, 0.2);
 }
 .logo {
     font-family: 'Cinzel', serif; font-size: 1.4rem; font-weight: 900;
     color: var(--sea-pale); letter-spacing: 2px; display: flex; align-items: center; gap: 10px;
-    text-shadow: 0 0 20px rgba(0, 180, 216, 0.6);
+    text-decoration: none; transition: opacity 0.3s;
 }
+.logo:hover { opacity: 0.8; }
 .logo img { height: 40px; width: auto; border-radius: 5px; }
 .nav-links { display: flex; gap: 1.2rem; align-items: center; }
 .nav-links a { text-decoration: none; color: var(--foam); font-weight: 600; font-size: 0.95rem; transition: color 0.3s; }
-.nav-links a:hover, .nav-links a.active { color: var(--sea-pale); }
+.nav-links a:hover, .nav-links a.active { color: var(--gold); }
 .nav-contacts { display: flex; gap: 0.8rem; align-items: center; }
 .nav-contacts a {
     width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
@@ -77,29 +88,30 @@ nav {
 /* БАННЕР */
 .banner {
     min-height: 100vh; position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center;
-    text-align: center; padding: 120px 5% 120px; background: url('images/баннер.png') center/cover no-repeat;
+    text-align: center; padding: 120px 5% 120px; 
+    background: url('images/баннер.png') center/cover no-repeat;
     background-color: var(--sea-deep);
 }
 .banner::before {
     content: ''; position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(2, 62, 138, 0.5) 0%, rgba(0, 119, 182, 0.2) 50%, rgba(3, 4, 94, 0.7) 100%);
+    background: linear-gradient(180deg, rgba(0, 8, 20, 0.6) 0%, rgba(1, 31, 75, 0.4) 50%, rgba(0, 8, 20, 0.8) 100%);
     z-index: 1;
 }
 .banner-content { position: relative; z-index: 2; max-width: 900px; width: 100%; }
-.banner-subtitle-top { font-size: clamp(1.1rem, 2vw, 1.5rem); color: #fff; margin-bottom: 0.5rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); }
+.banner-subtitle-top { font-size: clamp(1.1rem, 2vw, 1.5rem); color: var(--gold); margin-bottom: 0.5rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); font-weight: 600; letter-spacing: 2px;}
 .banner-title {
     font-family: 'Caveat', cursive; font-size: clamp(4rem, 12vw, 9rem);
     font-weight: 700; color: #fff; line-height: 0.9; margin-bottom: 1rem;
-    text-shadow: 4px 4px 20px rgba(0,0,0,0.8), 0 0 40px rgba(0, 180, 216, 0.6); transform: rotate(-2deg);
+    text-shadow: 4px 4px 20px rgba(0,0,0,0.8), 0 0 40px rgba(230, 184, 92, 0.4); transform: rotate(-2deg);
 }
 .banner-desc { font-size: clamp(1rem, 1.8vw, 1.3rem); color: #fff; max-width: 600px; margin: 0 auto 2.5rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.9); }
 .banner-features {
     display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap;
-    margin-top: 2rem; padding-top: 2rem; border-top: 2px solid rgba(144, 224, 239, 0.4);
+    margin-top: 2rem; padding-top: 2rem; border-top: 2px solid rgba(230, 184, 92, 0.3);
     max-width: 800px; margin-left: auto; margin-right: auto;
 }
 .banner-feature { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; color: white; text-shadow: 2px 2px 8px rgba(0,0,0,0.9); min-width: 120px; }
-.banner-feature i { font-size: 2.2rem; color: var(--sea-pale); filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.8)); }
+.banner-feature i { font-size: 2.2rem; color: var(--gold); filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.8)); }
 .banner-feature span { font-size: 0.85rem; font-weight: 600; text-align: center; }
 .banner-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem; }
 
@@ -109,12 +121,10 @@ nav {
     cursor: pointer; transition: all 0.4s; text-decoration: none;
     display: inline-flex; align-items: center; gap: 8px; border: none;
 }
-.btn-gold { background: linear-gradient(135deg, var(--gold), #b8894a); color: #0d0a05; box-shadow: 0 10px 40px rgba(212, 162, 78, 0.5); }
-.btn-gold:hover { transform: translateY(-5px) scale(1.05); }
+.btn-gold { background: linear-gradient(135deg, var(--gold), #b8894a); color: #0d0a05; box-shadow: 0 10px 40px rgba(230, 184, 92, 0.4); }
+.btn-gold:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 15px 50px rgba(230, 184, 92, 0.6); }
 .btn-wa { background: var(--wa); color: white; }
 .btn-wa:hover { transform: translateY(-5px) scale(1.05); }
-.btn-tg { background: var(--tg); color: white; }
-.btn-tg:hover { transform: translateY(-5px) scale(1.05); }
 .btn-fire { background: linear-gradient(135deg, #ff416c, #ff4b2b); color: white; box-shadow: 0 10px 40px rgba(255, 65, 108, 0.4); }
 .btn-fire:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 15px 50px rgba(255, 65, 108, 0.6); }
 
@@ -125,81 +135,82 @@ nav {
 /* Секции */
 section { padding: 6rem 5%; position: relative; }
 .section-title { text-align: center; margin-bottom: 4rem; }
-.section-title .subtitle { font-family: 'Cinzel', serif; color: var(--sea-pale); font-size: 0.9rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 1rem; }
+.section-title .subtitle { font-family: 'Cinzel', serif; color: var(--gold); font-size: 0.9rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 1rem; }
 .section-title h2 { font-family: 'Cinzel', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; color: #fff; margin-bottom: 1rem; }
-.section-title p { color: rgba(202, 240, 248, 0.8); font-size: 1.05rem; }
+.section-title p { color: rgba(179, 205, 224, 0.8); font-size: 1.05rem; }
 
-/* О КОМПАНИИ С ФОНОМ */
+/* О КОМПАНИИ */
 #about {
-    background: linear-gradient(rgba(2, 62, 138, 0.85), rgba(1, 42, 74, 0.95)), 
-                url('images/banner2.jpg') center/cover no-repeat;
+    background: linear-gradient(rgba(1, 31, 75, 0.85), rgba(0, 8, 20, 0.95)), url('images/banner2.jpg') center/cover no-repeat;
     background-attachment: fixed;
-    border-top: 1px solid rgba(144, 224, 239, 0.2);
-    border-bottom: 1px solid rgba(144, 224, 239, 0.2);
+    border-top: 1px solid rgba(179, 205, 224, 0.1);
+    border-bottom: 1px solid rgba(179, 205, 224, 0.1);
 }
 .about-wrap { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
-.about-text p { color: rgba(255, 255, 255, 0.95); font-size: 1.05rem; margin-bottom: 1.2rem; line-height: 1.7; text-shadow: 1px 1px 5px rgba(0,0,0,0.8); }
-.about-text .highlight { color: var(--sea-pale); font-weight: 700; }
+.about-text p { color: rgba(255, 255, 255, 0.9); font-size: 1.05rem; margin-bottom: 1.2rem; line-height: 1.7; text-shadow: 1px 1px 5px rgba(0,0,0,0.8); }
+.about-text .highlight { color: var(--gold); font-weight: 700; }
 .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 .stat-card {
-    background: linear-gradient(135deg, rgba(0, 119, 182, 0.4), rgba(144, 224, 239, 0.1));
-    backdrop-filter: blur(10px); border: 1px solid rgba(144, 224, 239, 0.4); border-radius: 20px;
+    background: linear-gradient(135deg, rgba(3, 57, 108, 0.6), rgba(1, 31, 75, 0.4));
+    backdrop-filter: blur(10px); border: 1px solid rgba(179, 205, 224, 0.2); border-radius: 20px;
     padding: 2rem 1.5rem; text-align: center; transition: all 0.4s;
 }
-.stat-card:hover { transform: translateY(-10px); border-color: var(--sea-pale); box-shadow: 0 20px 50px rgba(0, 180, 216, 0.4); }
+.stat-card:hover { transform: translateY(-10px); border-color: var(--gold); box-shadow: 0 20px 50px rgba(230, 184, 92, 0.2); }
 .stat-card i { font-size: 2rem; color: var(--sea-pale); margin-bottom: 1rem; }
 .stat-card h3 { font-family: 'Cinzel', serif; font-size: 2rem; color: var(--gold); margin-bottom: 0.3rem; }
 .stat-card p { color: #fff; font-size: 0.9rem; }
 
 /* ГОРОДА */
 .cities-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; perspective: 1500px; }
+.city-card-link { text-decoration: none; color: inherit; display: flex; }
 .city-card {
-    background: linear-gradient(180deg, rgba(0, 119, 182, 0.15), rgba(2, 62, 138, 0.1));
-    border: 1px solid rgba(144, 224, 239, 0.3); border-radius: 24px; overflow: hidden;
+    background: linear-gradient(180deg, rgba(3, 57, 108, 0.2), rgba(1, 31, 75, 0.1));
+    border: 1px solid rgba(179, 205, 224, 0.2); border-radius: 24px; overflow: hidden;
     transition: all 0.5s; display: flex; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    width: 100%;
 }
-.city-card:hover { transform: translateY(-15px) rotateX(4deg) rotateY(-4deg); border-color: var(--sea-pale); box-shadow: 0 40px 80px rgba(0, 180, 216, 0.4); }
+.city-card-link:hover .city-card { transform: translateY(-15px) rotateX(4deg) rotateY(-4deg); border-color: var(--gold); box-shadow: 0 40px 80px rgba(230, 184, 92, 0.2); }
 .city-img { height: 220px; background-size: cover; background-position: center; position: relative; }
-.city-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(2, 62, 138, 0.9)); }
+.city-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(1, 31, 75, 0.9)); }
 .city-name { position: absolute; bottom: 20px; left: 25px; font-family: 'Cinzel', serif; font-size: 1.8rem; font-weight: 900; color: #fff; z-index: 2; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); }
 .city-info { padding: 1.8rem; flex-grow: 1; display: flex; flex-direction: column; }
-.city-desc { color: rgba(202, 240, 248, 0.85); font-size: 0.95rem; margin-bottom: 1rem; flex-grow: 1; }
-.city-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
-.city-tag { font-size: 0.75rem; padding: 5px 12px; background: rgba(0, 180, 216, 0.15); border: 1px solid rgba(144, 224, 239, 0.3); border-radius: 20px; color: var(--sea-pale); font-weight: 600; }
+.city-desc { color: rgba(179, 205, 224, 0.85); font-size: 0.95rem; margin-bottom: 1rem; flex-grow: 1; }
 .city-btn {
     display: inline-flex; align-items: center; justify-content: center; gap: 8px;
     padding: 12px 25px; background: linear-gradient(135deg, var(--sea-light), var(--sea));
     color: white; border-radius: 50px; font-weight: 700; text-decoration: none; font-size: 0.95rem; transition: all 0.3s;
-    box-shadow: 0 8px 25px rgba(0, 180, 216, 0.4);
+    box-shadow: 0 8px 25px rgba(0, 91, 150, 0.4);
+    width: 100%;
 }
-.city-btn:hover { transform: scale(1.05); box-shadow: 0 15px 40px rgba(0, 180, 216, 0.6); }
+.city-btn:hover { transform: scale(1.02); box-shadow: 0 15px 40px rgba(0, 91, 150, 0.6); }
 
-/* FEATURES */
+/* FEATURES (Почему мы) */
 .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
 .feature-card {
-    background: linear-gradient(135deg, rgba(0, 119, 182, 0.15), rgba(144, 224, 239, 0.05));
-    border: 1px solid rgba(144, 224, 239, 0.25); border-radius: 20px; padding: 1.5rem; text-align: center; transition: all 0.5s;
+    background: linear-gradient(135deg, rgba(3, 57, 108, 0.2), rgba(179, 205, 224, 0.05));
+    border: 1px solid rgba(179, 205, 224, 0.15); border-radius: 20px; padding: 1.5rem; text-align: center; transition: all 0.5s;
+    text-decoration: none; color: inherit; display: block;
 }
-.feature-card:hover { transform: translateY(-15px) rotateX(5deg); border-color: var(--sea-pale); box-shadow: 0 30px 60px rgba(0, 180, 216, 0.3); }
-.feature-img { width: 100%; height: 160px; border-radius: 15px; margin-bottom: 1.5rem; background-size: cover; background-position: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid rgba(144, 224, 239, 0.3); }
-.feature-card h3 { font-family: 'Cinzel', serif; font-size: 1.2rem; margin-bottom: 0.8rem; color: var(--sea-pale); }
-.feature-card p { color: rgba(202, 240, 248, 0.7); font-size: 0.95rem; }
+.feature-card:hover { transform: translateY(-15px) rotateX(5deg); border-color: var(--gold); box-shadow: 0 30px 60px rgba(230, 184, 92, 0.2); }
+.feature-img { width: 100%; height: 160px; border-radius: 15px; margin-bottom: 1.5rem; background-size: cover; background-position: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 1px solid rgba(230, 184, 92, 0.2); }
+.feature-card h3 { font-family: 'Cinzel', serif; font-size: 1.2rem; margin-bottom: 0.8rem; color: var(--gold); }
+.feature-card p { color: rgba(179, 205, 224, 0.7); font-size: 0.95rem; }
 
 /* CONTACTS */
 .contacts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 900px; margin: 0 auto; }
 .contact-card {
-    background: linear-gradient(135deg, rgba(0, 119, 182, 0.15), rgba(144, 224, 239, 0.05));
-    border: 1px solid rgba(144, 224, 239, 0.25); border-radius: 20px; padding: 2.5rem 2rem;
+    background: linear-gradient(135deg, rgba(3, 57, 108, 0.2), rgba(179, 205, 224, 0.05));
+    border: 1px solid rgba(179, 205, 224, 0.2); border-radius: 20px; padding: 2.5rem 2rem;
     text-align: center; text-decoration: none; color: white; transition: all 0.4s;
 }
-.contact-card:hover { transform: translateY(-10px); border-color: var(--sea-pale); }
+.contact-card:hover { transform: translateY(-10px); border-color: var(--gold); }
 .contact-icon { width: 70px; height: 70px; margin: 0 auto 1.2rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white; }
 .contact-card.wa .contact-icon { background: var(--wa); }
 .contact-card.tg .contact-icon { background: var(--tg); }
-.contact-card h3 { font-family: 'Cinzel', serif; color: var(--sea-pale); margin-bottom: 0.5rem; }
+.contact-card h3 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 0.5rem; }
 .contact-card p { color: rgba(255,255,255,0.8); font-size: 1.05rem; }
 
-.floating-contacts { position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 12px; z-index: 999; }
+.floating-contacts { position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 12px; z-index: 998; }
 .floating-contacts a {
     width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
     font-size: 1.6rem; color: white; text-decoration: none; box-shadow: 0 10px 30px rgba(0,0,0,0.4); transition: transform 0.3s;
@@ -208,54 +219,71 @@ section { padding: 6rem 5%; position: relative; }
 .floating-contacts a.tg { background: var(--tg); }
 .floating-contacts a:hover { transform: scale(1.15) rotate(5deg); }
 
-footer { background: rgba(3, 4, 94, 0.85); border-top: 1px solid rgba(144, 224, 239, 0.2); padding: 3rem 5%; text-align: center; color: rgba(202, 240, 248, 0.5); }
-footer .logo { justify-content: center; margin-bottom: 1rem; }
-footer a { color: inherit; text-decoration: none; transition: color 0.3s; }
-footer a:hover { color: var(--sea-pale); }
+/* ФУТЕР */
+footer { background: #00060d; border-top: 1px solid rgba(230, 184, 92, 0.2); padding: 2rem 5%; text-align: center; color: rgba(179, 205, 224, 0.4); }
+footer .logo { justify-content: center; margin-bottom: 0.5rem; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; text-decoration: none;}
+footer .logo img { height: 40px; }
+.copyright-text { font-size: 0.85rem; color: #fff; margin-bottom: 1rem; }
+.dev-credit { font-size: 0.65rem; margin-bottom: 0.3rem; color: rgba(179, 205, 224, 0.5); }
+.dev-credit strong { color: var(--gold); }
+.footer-contacts { font-size: 0.65rem; margin-top: 0.2rem; }
+.footer-contacts a { color: inherit; text-decoration: none; transition: color 0.3s; }
+.footer-contacts a:hover { color: var(--gold); }
 
-/* КУКИ СНИЗУ */
+/* КУКИ */
 .cookie-banner {
     position: fixed; bottom: 0; left: 0; width: 100%; 
-    background: rgba(2, 62, 138, 0.95); backdrop-filter: blur(15px);
-    border-top: 2px solid var(--sea-light); padding: 1.5rem 5%;
-    display: flex; justify-content: space-between; align-items: center; gap: 1.5rem;
+    background: rgba(1, 31, 75, 0.98); backdrop-filter: blur(15px);
+    border-top: 1px solid var(--gold); padding: 1rem 5%;
+    display: flex; justify-content: space-between; align-items: center; gap: 1rem;
     z-index: 10000; flex-wrap: wrap; box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
     transform: translateY(100%); transition: transform 0.4s ease-in-out;
 }
 .cookie-banner.show { transform: translateY(0); }
-.cookie-text { color: rgba(202, 240, 248, 0.9); font-size: 0.95rem; display: flex; align-items: center; gap: 15px; flex: 1; min-width: 280px; }
-.cookie-text i { color: var(--sea-pale); font-size: 2rem; }
-.cookie-buttons { display: flex; gap: 1rem; }
-.cookie-btn { padding: 12px 25px; border-radius: 30px; font-size: 0.9rem; font-weight: 700; cursor: pointer; border: none; transition: all 0.3s; }
-.cookie-accept { background: linear-gradient(135deg, var(--sea-light), var(--sea)); color: white; box-shadow: 0 5px 15px rgba(0, 180, 216, 0.4); }
-.cookie-accept:hover { transform: scale(1.05); }
+.cookie-text { color: rgba(179, 205, 224, 0.9); font-size: 0.85rem; display: flex; align-items: center; gap: 10px; flex: 1; }
+.cookie-text i { color: var(--gold); font-size: 1.5rem; }
+.cookie-buttons { display: flex; gap: 0.8rem; }
+.cookie-btn { padding: 8px 18px; border-radius: 30px; font-size: 0.8rem; font-weight: 700; cursor: pointer; border: none; transition: all 0.3s; }
+.cookie-accept { background: linear-gradient(135deg, var(--gold), #b8894a); color: #0d0a05; }
 .cookie-decline { background: transparent; color: var(--sea-pale); border: 1px solid var(--sea-pale); }
-.cookie-decline:hover { background: rgba(144, 224, 239, 0.1); }
 
 .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s; }
 .reveal.active { opacity: 1; transform: translateY(0); }
 
-@media (max-width: 768px) {
-    .nav-links { display: none; }
-    .banner-features { gap: 1.5rem; }
+@media (max-width: 900px) {
+    .nav-links { display: none; } 
+    .nav-contacts { display: none; } 
+    .burger-menu { display: block; } 
     .about-wrap { grid-template-columns: 1fr; }
-    .cookie-banner { flex-direction: column; text-align: center; }
-    .cookie-text { flex-direction: column; text-align: center; }
+    .cookie-banner { flex-direction: column; text-align: center; gap: 0.5rem;}
 }
 </style>
 </head>
 <body>
 
+<div class="mobile-menu-overlay" id="mobileMenu">
+    <button class="mobile-close" onclick="toggleMenu()"><i class="fas fa-times"></i></button>
+    <a href="index.html" class="active">Главная</a>
+    <a href="services.html">Экскурсии по Египту</a>
+    <a href="tours.html">Подбор туров</a>
+    <a href="hot-tours.html">Горящие туры</a>
+    <a href="tips.html">Советы</a>
+    <div class="nav-contacts" style="display:flex; margin-top: 1rem;">
+        <a href="https://wa.me/79953166056" target="_blank" class="wa" style="width: 50px; height: 50px; font-size: 1.5rem;"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://t.me/+79953166056" target="_blank" class="tg" style="width: 50px; height: 50px; font-size: 1.5rem;"><i class="fab fa-telegram"></i></a>
+    </div>
+</div>
+
 <div class="bubbles">
     <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
-    <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
+    <div class="bubble"></div><div class="bubble"></div>
 </div>
 
 <nav>
-    <div class="logo">
+    <a href="index.html" class="logo">
         <img src="images/logo.jpeg" alt="Сфинкс Тур">
         СФИНКС ТУР
-    </div>
+    </a>
     <div class="nav-links">
         <a href="index.html" class="active">Главная</a>
         <a href="services.html">Экскурсии по Египту</a>
@@ -267,6 +295,7 @@ footer a:hover { color: var(--sea-pale); }
         <a href="https://wa.me/79953166056" target="_blank" class="wa"><i class="fab fa-whatsapp"></i></a>
         <a href="https://t.me/+79953166056" target="_blank" class="tg"><i class="fab fa-telegram"></i></a>
     </div>
+    <button class="burger-menu" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
 </nav>
 
 <header class="banner">
@@ -281,16 +310,16 @@ footer a:hover { color: var(--sea-pale); }
             <div class="banner-feature"><i class="fas fa-shield-alt"></i><span>Надежный<br>туроператор</span></div>
         </div>
         <div class="banner-buttons">
-            <a href="services.html" class="btn btn-gold"><i class="fas fa-compass"></i> Экскурсии по Египту</a>
-            <a href="hot-tours.html" class="btn btn-fire"><i class="fas fa-fire"></i> Горящие туры</a>
-            <a href="https://wa.me/79953166056?text=Здравствуйте!%20Хочу%20забронировать%20тур." target="_blank" class="btn btn-wa"><i class="fas fa-plane-departure"></i> Бронь тура</a>
+            <a href="services.html" class="btn btn-gold"><i class="fas fa-compass"></i> Экскурсии</a>
+            <a href="hot-tours.html" class="btn btn-fire"><i class="fas fa-fire"></i> Горящие</a>
+            <a href="https://wa.me/79953166056?text=Здравствуйте!%20Хочу%20забронировать%20тур." target="_blank" class="btn btn-wa"><i class="fab fa-whatsapp"></i> Бронь</a>
         </div>
     </div>
     <div class="waves">
         <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
-            <path fill="rgba(0, 180, 216, 0.4)" d="M0,50 C240,100 480,0 720,50 C960,100 1200,0 1440,50 L1440,100 L0,100 Z"></path>
-            <path fill="rgba(0, 119, 182, 0.5)" d="M0,60 C240,110 480,10 720,60 C960,110 1200,10 1440,60 L1440,100 L0,100 Z"></path>
-            <path fill="rgba(2, 62, 138, 0.8)" d="M0,70 C240,120 480,20 720,70 C960,120 1200,20 1440,70 L1440,100 L0,100 Z"></path>
+            <path fill="rgba(0, 91, 150, 0.4)" d="M0,50 C240,100 480,0 720,50 C960,100 1200,0 1440,50 L1440,100 L0,100 Z"></path>
+            <path fill="rgba(3, 57, 108, 0.6)" d="M0,60 C240,110 480,10 720,60 C960,110 1200,10 1440,60 L1440,100 L0,100 Z"></path>
+            <path fill="rgba(1, 31, 75, 0.9)" d="M0,70 C240,120 480,20 720,70 C960,120 1200,20 1440,70 L1440,100 L0,100 Z"></path>
         </svg>
     </div>
 </header>
@@ -303,20 +332,18 @@ footer a:hover { color: var(--sea-pale); }
     </div>
     <div class="about-wrap">
         <div class="about-text reveal">
-            <p><span class="highlight">Сфинкс Тур</span> — это команда профессионалов, которая уже более <span class="highlight">10 лет</span> организует незабываемые путешествия по Египту. Мы знаем эту страну изнутри и делимся с вами её лучшими уголками.</p>
-            <p>Наша миссия — сделать ваш отдых <span class="highlight">максимально комфортным и безопасным</span>. Мы работаем только с проверенными отелями, лицензированными гидами и надёжными партнёрами.</p>
-            <p>Более того, мы организуем <span class="highlight">поиск и подбор горящих туров по всему миру</span>! Хотите в Турцию, на Мальдивы или в Европу? Мы найдём для вас лучшие предложения по самым выгодным ценам.</p>
-            <p style="margin-bottom: 2rem;">От экскурсий к пирамидам Гизы до дайвинга в Красном море и пляжей других стран — подберём тур под любой вкус и бюджет.</p>
-            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <p><span class="highlight">Сфинкс Тур</span> — это команда профессионалов, которая уже более <span class="highlight">10 лет</span> организует незабываемые путешествия по Египту.</p>
+            <p>Наша миссия — сделать ваш отдых <span class="highlight">максимально комфортным и безопасным</span>.</p>
+            <p>Мы организуем <span class="highlight">поиск и подбор горящих туров по всему миру</span>! От экскурсий к пирамидам Гизы до дайвинга в Красном море и пляжей других стран.</p>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem;">
                 <a href="tours.html" class="btn btn-gold"><i class="fas fa-search-location"></i> Подбор туров</a>
-                <a href="https://wa.me/79953166056?text=Здравствуйте!%20Хочу%20забронировать%20тур." target="_blank" class="btn btn-wa"><i class="fas fa-plane-departure"></i> Забронировать тур</a>
             </div>
         </div>
         <div class="about-stats reveal">
             <div class="stat-card"><i class="fas fa-globe"></i><h3>50+</h3><p>стран мира</p></div>
             <div class="stat-card"><i class="fas fa-fire"></i><h3>1000+</h3><p>горящих туров</p></div>
-            <div class="stat-card"><i class="fas fa-users"></i><h3>5000+</h3><p>довольных клиентов</p></div>
-            <div class="stat-card"><i class="fas fa-star"></i><h3>4.9</h3><p>средняя оценка</p></div>
+            <div class="stat-card"><i class="fas fa-users"></i><h3>5000+</h3><p>клиентов</p></div>
+            <div class="stat-card"><i class="fas fa-star"></i><h3>4.9</h3><p>оценка</p></div>
         </div>
     </div>
 </section>
@@ -325,71 +352,84 @@ footer a:hover { color: var(--sea-pale); }
     <div class="section-title reveal">
         <div class="subtitle">Куда поехать</div>
         <h2>Города Египта</h2>
-        <p>Выберите свой идеальный маршрут</p>
     </div>
     <div class="cities-grid">
-        <div class="city-card reveal">
-            <div class="city-img" style="background-image: url('images/hurgada.jpg');"><div class="city-name">Хургада</div></div>
-            <div class="city-info">
-                <p class="city-desc">Главный курорт Красного моря для семейного отдыха. Тёплое море круглый год, песчаные пляжи, коралловые рифы и множество развлечений.</p>
-                <div class="city-tags"><span class="city-tag">Семейный</span><span class="city-tag">Пляжи</span><span class="city-tag">Снорклинг</span></div>
-                <a href="services.html" class="city-btn"><i class="fas fa-arrow-right"></i> Смотреть экскурсии</a>
+        
+        <!-- Ссылка на Хургаду -->
+        <a href="services.html" class="city-card-link reveal">
+            <div class="city-card">
+                <div class="city-img" style="background-image: url('images/hurgada.jpg');"><div class="city-name">Хургада</div></div>
+                <div class="city-info">
+                    <p class="city-desc">Главный курорт Красного моря для семейного отдыха.</p>
+                    <div class="city-btn">Смотреть экскурсии</div>
+                </div>
             </div>
-        </div>
-        <div class="city-card reveal">
-            <div class="city-img" style="background-image: url('images/cairo1.jpg');"><div class="city-name">Каир</div></div>
-            <div class="city-info">
-                <p class="city-desc">Столица Египта и сердце древней цивилизации. Пирамиды Гизы, Сфинкс, Египетский музей с сокровищами Тутанхамона и шумные базары.</p>
-                <div class="city-tags"><span class="city-tag">Пирамиды</span><span class="city-tag">История</span><span class="city-tag">Музеи</span></div>
-                <a href="services.html" class="city-btn"><i class="fas fa-arrow-right"></i> Смотреть экскурсии</a>
+        </a>
+
+        <!-- Ссылка на Каир -->
+        <a href="services.html" class="city-card-link reveal">
+            <div class="city-card">
+                <div class="city-img" style="background-image: url('images/cairo1.jpg');"><div class="city-name">Каир</div></div>
+                <div class="city-info">
+                    <p class="city-desc">Столица Египта и сердце древней цивилизации.</p>
+                    <div class="city-btn">Смотреть экскурсии</div>
+                </div>
             </div>
-        </div>
-        <div class="city-card reveal">
-            <div class="city-img" style="background-image: url('images/louxor1.jpg');"><div class="city-name">Луксор</div></div>
-            <div class="city-info">
-                <p class="city-desc">«Музей под открытым небом» — здесь находятся Карнакский и Луксорский храмы, Долина Царей и храм Хатшепсут.</p>
-                <div class="city-tags"><span class="city-tag">Храмы</span><span class="city-tag">Долина Царей</span><span class="city-tag">Экскурсии</span></div>
-                <a href="services.html" class="city-btn"><i class="fas fa-arrow-right"></i> Смотреть экскурсии</a>
+        </a>
+
+        <!-- Ссылка на Луксор -->
+        <a href="services.html" class="city-card-link reveal">
+            <div class="city-card">
+                <div class="city-img" style="background-image: url('images/louxor1.jpg');"><div class="city-name">Луксор</div></div>
+                <div class="city-info">
+                    <p class="city-desc">«Музей под открытым небом» — храмы и Долина Царей.</p>
+                    <div class="city-btn">Смотреть экскурсии</div>
+                </div>
             </div>
-        </div>
+        </a>
+
     </div>
 </section>
 
+<!-- СЕКЦИЯ ПОЧЕМУ МЫ (КЛИКАБЕЛЬНЫЕ КАРТОЧКИ) -->
 <section>
     <div class="section-title reveal">
         <div class="subtitle">Почему мы</div>
-        <h2>Ваше идеальное путешествие</h2>
-        <p>Сфинкс тур — более 10 лет организуем туры</p>
+        <h2>Ваше путешествие</h2>
     </div>
     <div class="features">
-        <div class="feature-card reveal">
+        
+        <a href="services.html" class="feature-card reveal">
             <div class="feature-img" style="background-image: url('images/feature-beach.jpg');"></div>
             <h3>Лучшие пляжи</h3>
-            <p>Оранж Бэй и Райский остров с кристально чистой водой Красного моря.</p>
-        </div>
-        <div class="feature-card reveal">
+            <p>Оранж Бэй и Райский остров.</p>
+        </a>
+
+        <a href="services.html" class="feature-card reveal">
             <div class="feature-img" style="background-image: url('images/feature-diving.jpg');"></div>
             <h3>Подводный мир</h3>
-            <p>Дайвинг, батискафы, снорклинг — откройте тайны коралловых рифов.</p>
-        </div>
-        <div class="feature-card reveal">
+            <p>Дайвинг и снорклинг на рифах.</p>
+        </a>
+
+        <a href="services.html" class="feature-card reveal">
             <div class="feature-img" style="background-image: url('images/feature-extreme.jpg');"></div>
             <h3>Экстрим</h3>
-            <p>Квадроциклы, парасейлинг, верховая езда — адреналин гарантирован.</p>
-        </div>
-        <div class="feature-card reveal">
+            <p>Квадроциклы и парасейлинг.</p>
+        </a>
+
+        <a href="services.html" class="feature-card reveal">
             <div class="feature-img" style="background-image: url('images/feature-family.jpg');"></div>
-            <h3>Для всей семьи</h3>
-            <p>Дельфинарий и поездки в бедуинские деревни понравятся всем.</p>
-        </div>
+            <h3>Для семьи</h3>
+            <p>Дельфинарий и бедуины.</p>
+        </a>
+
     </div>
 </section>
 
 <section>
     <div class="section-title reveal">
-        <div class="subtitle">Свяжитесь с нами</div>
-        <h2>Готовы к приключению?</h2>
-        <p>Напишите нам в удобный мессенджер — ответим за 5 минут</p>
+        <div class="subtitle">Контакты</div>
+        <h2>Свяжитесь с нами</h2>
     </div>
     <div class="contacts-grid">
         <a href="https://wa.me/79953166056" target="_blank" class="contact-card wa reveal">
@@ -409,28 +449,27 @@ footer a:hover { color: var(--sea-pale); }
 </div>
 
 <footer>
-    <div class="logo" style="justify-content: center; margin-bottom: 1rem;">
-        <img src="images/logo.jpeg" alt="Сфинкс Тур" style="height: 50px; border-radius: 5px;">
+    <a href="index.html" class="logo">
+        <img src="images/logo.jpeg" alt="Сфинкс Тур">
         СФИНКС ТУР
+    </a>
+    
+    <div class="copyright-text">
+        © 2026 Сфинкс тур. Все права защищены.
     </div>
-    <p style="color: #caf0f8; margin-bottom: 1rem; font-size: 1rem;">
-        Сайт разработал: <strong style="color: var(--gold);">Ахмед</strong>
-        <br>
-        <span style="font-size: 0.9rem; color: rgba(255,255,255,0.7);">
-            <i class="fas fa-phone-alt"></i> +7 999 920-60-65
-        </span>
-    </p>
-    <p>© 2026 Сфинкс тур. Все права защищены.</p>
-    <p style="margin-top: 0.5rem;">
+
+    <div class="dev-credit">
+        Сайт разработал: <strong>Ахмед</strong>
+    </div>
+    <div class="footer-contacts">
         <i class="fab fa-whatsapp" style="color: var(--wa);"></i> 
-        <a href="https://wa.me/79953166056" target="_blank">+7 995 316-60-56</a>
+        <a href="https://wa.me/79999206065" target="_blank">+7 999 920-60-65</a>
         &nbsp;|&nbsp;
         <i class="fab fa-telegram" style="color: var(--tg);"></i> 
-        <a href="https://t.me/+79953166056" target="_blank">+7 995 316-60-56</a>
-    </p>
+        <a href="https://t.me/+79999206065" target="_blank">+7 999 920-60-65</a>
+    </div>
 </footer>
 
-<!-- КУКИ СНИЗУ -->
 <div class="cookie-banner" id="cookieBanner">
     <div class="cookie-text">
         <i class="fas fa-cookie-bite"></i>
@@ -443,6 +482,10 @@ footer a:hover { color: var(--sea-pale); }
 </div>
 
 <script>
+    function toggleMenu() {
+        document.getElementById('mobileMenu').classList.toggle('active');
+    }
+
     const reveals = document.querySelectorAll('.reveal');
     function revealOnScroll() {
         reveals.forEach(el => {
@@ -455,7 +498,6 @@ footer a:hover { color: var(--sea-pale); }
     window.addEventListener('load', function() {
         document.getElementById('cookieBanner').classList.add('show');
     });
-
     function acceptCookies() { document.getElementById('cookieBanner').classList.remove('show'); }
     function declineCookies() { document.getElementById('cookieBanner').classList.remove('show'); }
 </script>
